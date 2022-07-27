@@ -108,5 +108,108 @@ namespace HTTP_ht1.Services
                 }
             }
         }
+
+        public async Task PostRS()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_url);
+
+                Post post = new Post
+                {
+                    email = "eve.holt@reqres.in",
+                    password = "pistol",
+                };
+
+                string serialized = JsonConvert.SerializeObject(post);
+                StringContent content = new StringContent(serialized, Encoding.Unicode, "application/json");
+
+                HttpResponseMessage message = await client.PostAsync("api/register", content);
+
+                if (message.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("post reg");
+                    string cont = await message.Content.ReadAsStringAsync();
+                    Console.WriteLine(cont);
+                }
+            }
+        }
+
+        public async Task PostRU()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_url);
+
+                Post post = new Post
+                {
+                    email = "sydney@fife",
+                };
+
+                string serialized = JsonConvert.SerializeObject(post);
+                StringContent content = new StringContent(serialized, Encoding.Unicode, "application/json");
+
+                HttpResponseMessage message = await client.PostAsync("api/register", content);
+
+
+                if (message.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    Console.WriteLine("post reg un");
+                    string cont = await message.Content.ReadAsStringAsync();
+                    Console.WriteLine(cont);
+                }
+            }
+        }
+
+        public async Task PostLS()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_url);
+
+                Post post = new Post
+                {
+                    email = "eve.holt@reqres.in",
+                    password = "cityslicka",
+                };
+
+                string serialized = JsonConvert.SerializeObject(post);
+                StringContent content = new StringContent(serialized, Encoding.Unicode, "application/json");
+
+                HttpResponseMessage message = await client.PostAsync("api/login", content);
+
+                if (message.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("post login s");
+                    string cont = await message.Content.ReadAsStringAsync();
+                    Console.WriteLine(cont);
+                }
+            }
+        }
+
+        public async Task PostLU()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_url);
+
+                Post post = new Post
+                {
+                    email = "peter@klaven",
+                };
+
+                string serialized = JsonConvert.SerializeObject(post);
+                StringContent content = new StringContent(serialized, Encoding.Unicode, "application/json");
+
+                HttpResponseMessage message = await client.PostAsync("api/login", content);
+
+                if (message.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    Console.WriteLine("post login u");
+                    string cont = await message.Content.ReadAsStringAsync();
+                    Console.WriteLine(cont);
+                }
+            }
+        }
     }
 }
